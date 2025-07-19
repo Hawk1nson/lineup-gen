@@ -34,7 +34,7 @@ while True:
         exit()
 
     if not user_input.isdigit():
-        print("❌ Please enter a number or type 'exit' to quit.")
+        print("❌ Please enter a number or type 'x' to quit.")
         continue
 
     num_out = int(user_input)
@@ -50,9 +50,9 @@ while True:
     not_playing = []
     for i in range(num_out):
         while True:
-            initials = input(f"Enter initials for player {i + 1} not playing (or 'exit' to quit): ").strip().upper()
+            initials = input(f"Enter initials for player {i + 1} not playing (or 'x' to quit): ").strip().upper()
             
-            if initials.lower() == "exit":
+            if initials.lower() == "x":
                 print("👋 Exiting program.")
                 exit()
             elif initials not in all_players:
