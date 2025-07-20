@@ -1,4 +1,5 @@
 import random
+import csv
 
 # Dictionary mapping initials to full names
 players_dict = {
@@ -20,12 +21,9 @@ forbidden_pairs = [
     ('LA', 'JS'), ('EG', 'JS'), ('LC', 'JS')
 ]
 
-# Prompt for unavailable players
 all_players = list(players_dict.keys())
 
-# try statement for number of players
-all_players = list(players_dict.keys())  # Keep this line above
-
+# Ask how many players are out
 while True:
     user_input = input("How many players are not playing? (0–10 or 'x' to quit): ").strip().lower()
 
@@ -51,7 +49,6 @@ while True:
     for i in range(num_out):
         while True:
             initials = input(f"Enter initials for player {i + 1} not playing (or 'x' to quit): ").strip().upper()
-            
             if initials.lower() == "x":
                 print("👋 Exiting program.")
                 exit()
@@ -61,13 +58,12 @@ while True:
                 print("⚠️ You already entered that player.")
             else:
                 not_playing.append(initials)
-                break  # Go to next player
+                break
 
-    # Remove those players from the lineup
     active_players = [p for p in all_players if p not in not_playing]
-    break  # Exit the input loop and move on
+    break  # Done collecting input
 
-# Validate function
+# Validity check
 def is_valid_lineup(lineup):
     for i in range(len(lineup) - 1):
         if (lineup[i], lineup[i + 1]) in forbidden_pairs:
@@ -85,12 +81,35 @@ def generate_valid_lineup(players, forbidden_pairs, max_attempts=10000):
         attempts += 1
     return None
 
-# Generate and print
-lineup = generate_valid_lineup(active_players, forbidden_pairs)
+# Loop: keep generating until user accepts or exits
+while True:
+    lineup = generate_valid_lineup(active_players, forbidden_pairs)
+    if not lineup:
+        print("❌ Could not generate a valid lineup after many attempts.")
+        exit()
 
-if lineup:
     print("\n✅ Valid Batting Lineup:")
     for i, initials in enumerate(lineup, start=1):
         print(f"{i}. {players_dict[initials]} ({initials})")
-else:
-    print("❌ Could not generate a valid lineup after many attempts.")
+
+    choice = input("\nAccept this lineup? (y = yes / r = reshuffle / x = quit): ").strip().lower()
+    if choice == "x":
+        print("👋 Exiting program.")
+        exit()
+    elif choice == "y":
+        # Export to CSV
+        filename = "lineup.csv"
+        try:
+            with open(filename, "w", newline="") as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(["Batting Order", "Player Name", "Initials"])
+                for i, initials in enumerate(lineup, start=1):
+                    writer.writerow([i, players_dict[initials], initials])
+            print(f"\n📄 Lineup saved to '{filename}' successfully.")
+        except Exception as e:
+            print(f"⚠️ Failed to write CSV: {e}")
+        break
+    elif choice == "r":
+        continue  # reshuffle
+    else:
+        print("❌ Invalid input. Please enter 'y', 'r', or 'x'.")
