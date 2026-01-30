@@ -9,7 +9,7 @@ players_dict = {
     'CF': 'Connor Fisher',
     'IP': 'Isaac Parker',
     'LC': 'Luke Caldwell',
-    'CB': 'Caleb Brown
+    'CB': 'Caleb Brown',
     'LA': 'Liam Anderson',
     'ZT': 'Zachary Turner',
     'JS': 'Jordan Sullivan'
