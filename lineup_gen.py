@@ -3,16 +3,16 @@ import csv
 
 # Dictionary mapping initials to full names
 players_dict = {
-    'AG': 'Anders Greenwell',
-    'EG': 'Eli Gergen',
-    'LH': 'Lincoln Hawkinson',
-    'CF': 'Carter Funk',
-    'IP': 'Ian Peterson',
-    'LC': 'Landon Carey',
-    'CB': 'Christian Black',
-    'LA': 'Luke Atkinson',
-    'ZT': 'Zach Tolscer',
-    'JS': 'Jaxon Smith'
+    'AG': 'Alex Grant',
+    'EG': 'Ethan Gray',
+    'LH': 'Logan Hughes',
+    'CF': 'Connor Fisher',
+    'IP': 'Isaac Parker',
+    'LC': 'Luke Caldwell',
+    'CB': 'Caleb Brown',
+    'LA': 'Liam Anderson',
+    'ZT': 'Zachary Turner',
+    'JS': 'Jordan Sullivan'
 }
 
 # Forbidden pairs using initials
